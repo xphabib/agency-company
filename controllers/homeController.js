@@ -1,12 +1,14 @@
-const { User } = require('../models');
 const logger = require('../utils/logger');
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
 const homePage = async (req, res) => {
     try {
         logger.info(`Processing by UsersController#index as ${req.headers['accept'] || 'JSON'}`);
         logger.info(`  Parameters: ${JSON.stringify(req.query)}`);
 
-        const users = await User.findAll();
-        res.json(users);
+        const users = await prisma.users.findMany({})
+        // res.json(users);
+        res.render('home/index', {title: 'Welcome to expressjs', users: users});
 
         logger.info('Completed 200 OK');
     } catch (error) {
@@ -24,7 +26,12 @@ const aboutPage = (req, res) => {
 const addUser = async (req, res) => {
     const { name, email, password } = req.body;
     try {
-      const newUser = await User.create({ name, email, password });
+      const newUser = await prisma.users.create({
+          data:{
+              name,
+              email,
+              password
+          }});
       res.json(newUser);
     } catch (error) {
       console.error(error);

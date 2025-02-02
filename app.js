@@ -1,10 +1,26 @@
-const express = require('express');
-const path = require('path');
+import express from 'express';
+import AdminJS from 'adminjs';
+import AdminJSExpress from '@adminjs/express';
+import { PrismaClient } from '@prisma/client';
+import AdminJSPrisma from '@adminjs/prisma';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const prisma = new PrismaClient();
 const app = express();
 const port = 3000;
 
-const morgan = require('morgan');
-const logger = require('./utils/logger');
+import morgan from 'morgan';
+import logger from './utils/logger.js';
+
+
+
+const admin = new AdminJS({})
+
+const adminRouter = AdminJSExpress.buildRouter(admin)
+app.use(admin.options.rootPath, adminRouter)
+
 
 // Middleware to log HTTP requests in a Rails-like format
 app.use((req, res, next) => {
@@ -37,7 +53,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-const homeRouter = require('./routes/homeRouter');
+import homeRouter from 'routes/homeRouter';
 app.use('/', homeRouter);
 
 // 404 page

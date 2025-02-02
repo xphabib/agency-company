@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const { homePage, aboutPage, addUser } = require('../controllers/homeController');
+import { homePage, aboutPage, addUser } from '../controllers/homeController';
+import logger from "../utils/logger.js";
 
 router.get('/', homePage);
 router.get('/about', aboutPage);
@@ -11,4 +12,4 @@ router.post('/api/data', (req, res) => {
     res.json({ message: `Hello, ${name}` });
 });
 
-module.exports = router;
+export default router;

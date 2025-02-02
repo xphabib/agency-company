@@ -2,6 +2,7 @@
   "name": "agency-company",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
@@ -12,10 +13,17 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@adminjs/express": "^6.1.1",
+    "@adminjs/prisma": "^5.0.3",
+    "@prisma/client": "^6.3.0",
+    "adminjs": "^7.8.15",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
+    "express-formidable": "^1.2.0",
+    "express-session": "^1.18.1",
     "morgan": "^1.10.0",
     "mysql2": "^3.12.0",
+    "prisma": "^6.3.0",
     "sequelize": "^6.37.5",
     "winston": "^3.17.0"
   },
